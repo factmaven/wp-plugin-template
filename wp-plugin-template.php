@@ -1,39 +1,36 @@
 <?php
 /**
-    Plugin Name: PLUGIN_NAME
-    Plugin URI: https://wordpress.org/plugins/PLUGIN_SLUG/
-    Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-    Version: 1.0.0
-    Author: <a href="https://www.factmaven.com/">Fact Maven Corp.</a>
-    License: GPLv3
-*/
+ * Plugin Name: WP Plugin Template
+ * Plugin URI: https://www.factmaven.com/#plugins
+ * Description: Quick-start plugin template utilizing PHP namespaces.
+ * Version: 2.0.0
+ * Author: Fact Maven
+ * Author URI: https://www.factmaven.com
+ * Text Domain: wp-plugin-template
+ * Domain Path: /languages
+ * License: GPLv3
+ * License URI: https://www.gnu.org/licenses/gpl-3.0.txt
+ */
 
-if ( !defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+# If accessed directly, exit
+if ( ! defined( 'ABSPATH' ) ) exit;
 
-if ( !class_exists( 'FMC_PluginName' ) ) {
-    
-    class FMC_PluginName {
+# Define the plugin's latest version
+define( 'WPPT_VERSION', '2.0.0' );
+# Define the minimum WordPress version required
+define( 'WPPT_MIN_WP', '3.7' );
+# Define the minimum PHP version required
+define( 'WPPT_MIN_PHP', '5.3' );
+# Define the plugin base
+define( 'WPPT_BASE', plugin_basename( __FILE__ ) );
+# Define the plugin slug
+define( 'WPPT_SLUG', 'wp-plugin-template' );
+# Define the plugins directory
+define( 'WPPT_DIR', ABSPATH . 'wp-content/plugins' );
 
-        public function __construct() {
-            // DEFNE CONSTANTS
-            define( 'PLGN_ABBR_FACTMAVEN', 'https://www.factmaven.com/' );         
-            define( 'PLGN_ABBR_WORDPRESS', 'https://wordpress.org/' );
-            define( 'PLGN_ABBR_GITHUB', 'https://github.com/factmaven/PLUGIN_SLUG' );
-            define( 'PLGN_ABBR_PLUGIN', plugin_dir_path( __FILE__ ) );
-            
-            // PLUGIN INFO
-            include( PLGN_ABBR_PLUGIN . 'includes/plugin-meta.php' );
+# Call the autoloader
+require_once( 'admin/autoload.php' );
+new Fact_Maven_Autoloader;
 
-            add_action( 'tag', array( $this, 'plgn_abbr_function' ), 10, 1 );
-        }
-
-        public function plgn_abbr_function() {
-            # Code here...
-        }
-    }
-}
-
-if ( class_exists( 'FMC_PluginName' ) ) { // Instantiate the plugin class
-    global $plgn_abbr;
-    $plgn_abbr = new FMC_PluginName();
-}
+use WpPluginTemplate\admin\Plugin_Meta;
+new Plugin_Meta;
